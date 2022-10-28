@@ -1,6 +1,5 @@
 let quizContainer = document.getElementById("quiz");
 let resultsContainer = document.getElementById("results");
-let submitButton = document.getElementById("submit");
 let questionIndex = 0;
 let result = "";
 
@@ -12,13 +11,13 @@ const questions = [
     points: 10,
   },
   {
-    question: "What does Draco Malfoy call Hermione?",
-    options: ["Muggle", "Mudblood", "Muffliato", "Mandrake"],
+    question: "Which of these are ball and socket joints?",
+    options: ["wrist", "hip", "ankle", "knee"],
     rightAnswer: 1,
     points: 10,
   },
   {
-    question: "hat's the primary action of the glutes?",
+    question: "What's the primary action of the glutes?",
     options: [
       "hip extension",
       "humerus abduction",
@@ -44,30 +43,25 @@ const questions = [
 
 function answerResults() {
   if (questions[questionIndex].rightAnswer == this.getAttribute("option-id")) {
-    score += questions[questionIndex].points;
     result = "Correct";
   } else {
     result = "Wrong";
-    if (time - 10 > 0) {
-      time -= 10;
-    } else {
-      time = 0;
-    }
   }
   questionIndex++;
   if (questionIndex < questions.length) {
-    showQuestion();
+    showQuestions();
   } else {
     endQuiz();
   }
 }
 
 function showQuestions() {
+  quizContainer.innerHTML = "";
   const question = questions[questionIndex];
   const h3 = document.createElement("h3");
   h3.innerText = question.question;
   const ul = document.createElement("ul");
-  ul.setAttribute("id", "question-ul");
+  ul.setAttribute("id", "quiz-ul");
   for (let i = 0; i < question.options.length; i++) {
     const li = document.createElement("li");
     li.innerText = question.options[i];

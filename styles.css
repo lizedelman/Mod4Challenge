@@ -43,3 +43,53 @@ ul {
 }
 
 /* Begin regular CSS */
+
+body {
+  padding: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+a {
+  background-color: hotpink;
+  padding: 5px;
+  border: hotpink 1px solid;
+  border-radius: 5%;
+  font-size: 20px;
+  box-shadow: 5px 5px grey;
+}
+
+p {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+#question,
+#quiz,
+#results,
+#complete,
+#hiscores {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+a:hover {
+  background-color: pink;
+}
+
+#quiz ul {
+  list-style-type: none;
+  width: 33%;
+}
+
+#quiz ul li {
+  padding: 10px 0;
+}
+
+#quiz ul#quiz-ul li:hover {
+  background-color: pink;
+  color: black;
+}
