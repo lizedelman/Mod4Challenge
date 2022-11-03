@@ -3,6 +3,7 @@ const questionContainer = document.getElementById("questions");
 const answerContainer = document.getElementById("answers");
 const resultsContainer = document.getElementById("results");
 const submitButton = document.getElementById("submit");
+const welcome = document.getElementById("welcome");
 
 var questions = [
   {
@@ -39,6 +40,7 @@ function startTimer() {
     document.getElementById("timer").textContent = `Time: ${time}`;
     if (time <= 0) {
       clearInterval(interval);
+      endGame;
       //game over function (wrong questions, right etc and call initials function)
     } else {
       time--;
@@ -49,7 +51,14 @@ function startTimer() {
 function startGame() {
   startTimer();
   displayQuestions(questions);
-  //clear everytime content of the answers before display question. Reassign the empty string.
+  welcome.textContent = [];
+}
+
+function endGame() {
+  quizContainer.textContent = "";
+  const h3 = document.createElement("h3");
+  h3.textContent = "Your score: ";
+  quizContainer.appendChild(h3);
 }
 
 function displayQuestions(arr) {
@@ -70,14 +79,18 @@ document.addEventListener("click", function (event) {
     userAnswer = event.target.textContent;
     if (userAnswer === riteAnswer) {
       document.getElementById("response").textContent = "Right!";
-      questions = [];
     } else {
       document.getElementById("response").textContent = "Wrong";
-      questions = [];
       time = -10;
     }
     questionsNumber++;
-    displayQuestions(questions);
+    if (questionsNumber < questions.length) {
+      //clears answers before going on to next question
+      answerContainer.textContent = [];
+      displayQuestions(questions);
+    } else {
+      endGame();
+    }
   }
 });
 

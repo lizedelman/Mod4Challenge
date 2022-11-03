@@ -76,9 +76,16 @@ p {
   padding-bottom: 10px;
 }
 
-.questions .answers {
+button.answer {
   margin-bottom: 10px;
   display: block;
+  background-color: aqua;
+  padding: 5px;
+  border: none;
+}
+
+button.answer:hover {
+  background-color: pink;
 }
 
 a:hover {
