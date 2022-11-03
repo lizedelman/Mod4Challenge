@@ -1,84 +1,83 @@
-let quizContainer = document.getElementById("quiz");
-let resultsContainer = document.getElementById("results");
-let questionIndex = 0;
-let result = "";
+const quizContainer = document.getElementById("quiz");
+const questionContainer = document.getElementById("questions");
+const answerContainer = document.getElementById("answers");
+const resultsContainer = document.getElementById("results");
+const submitButton = document.getElementById("submit");
 
-const questions = [
+var questions = [
   {
-    question: "Where is the bicep brachii located?",
-    options: ["arm", "chest", "back", "leg"],
-    rightAnswer: 0,
-    points: 10,
+    title: "Where is the bicep brachii located?",
+    choices: ["arm", "chest", "back", "knee"],
+    answer: "arm",
   },
   {
-    question: "Which of these are ball and socket joints?",
-    options: ["wrist", "hip", "ankle", "knee"],
-    rightAnswer: 1,
-    points: 10,
+    title: "Which of these are ball and socket joints?",
+    choices: ["wrist", "hip", "ankle", "shin"],
+    answer: "hip",
   },
   {
-    question: "What's the primary action of the glutes?",
-    options: [
+    title: "What's the primary action of the glutes?",
+    choices: [
       "hip extension",
       "humerus abduction",
       "scapula protraction",
-      "arm extension",
+      "wrist supination",
     ],
-    rightAnswer: 0,
-    points: 10,
-  },
-  {
-    question: "Where is the median nerve located?",
-    options: ["ankle", "knee", "wrist", "toes"],
-    rightAnswer: 2,
-    points: 10,
-  },
-  {
-    question: "Where is the brachial plexus?",
-    options: ["lower leg", "upper leg", "upper chest", "left hip"],
-    rightAnswer: 2,
-    points: 10,
+    answer: "hip extension",
   },
 ];
 
-function answerResults() {
-  if (questions[questionIndex].rightAnswer == this.getAttribute("option-id")) {
-    result = "Correct";
-  } else {
-    result = "Wrong";
-  }
-  questionIndex++;
-  if (questionIndex < questions.length) {
-    showQuestions();
-  } else {
-    endQuiz();
+var questionsNumber = 0;
+var userAnswer = "";
+var riteAnswer = "";
+
+//Timer
+var interval;
+var time = 60;
+function startTimer() {
+  interval = setInterval(() => {
+    document.getElementById("timer").textContent = `Time: ${time}`;
+    if (time <= 0) {
+      clearInterval(interval);
+      //game over function (wrong questions, right etc and call initials function)
+    } else {
+      time--;
+    }
+  }, 1000);
+}
+
+function startGame() {
+  startTimer();
+  displayQuestions(questions);
+  //clear everytime content of the answers before display question. Reassign the empty string.
+}
+
+function displayQuestions(arr) {
+  questionContainer.textContent = arr[questionsNumber].title;
+  var choices = arr[questionsNumber].choices;
+  riteAnswer = arr[questionsNumber].answer;
+  for (let i = 0; i < choices.length; i++) {
+    const element = choices[i];
+    const answerBtn = document.createElement("button");
+    answerBtn.setAttribute("class", "answer");
+    answerBtn.textContent = element;
+    answerContainer.append(answerBtn);
   }
 }
 
-function showQuestions() {
-  quizContainer.innerHTML = "";
-  const question = questions[questionIndex];
-  const h3 = document.createElement("h3");
-  h3.innerText = question.question;
-  const ul = document.createElement("ul");
-  ul.setAttribute("id", "quiz-ul");
-  for (let i = 0; i < question.options.length; i++) {
-    const li = document.createElement("li");
-    li.innerText = question.options[i];
-    li.setAttribute("option-id", i);
-    li.addEventListener("click", answerResults);
-    ul.appendChild(li);
+document.addEventListener("click", function (event) {
+  if (event.target.matches(".answer")) {
+    userAnswer = event.target.textContent;
+    if (userAnswer === riteAnswer) {
+      document.getElementById("response").textContent = "Right!";
+    } else {
+      document.getElementById("response").textContent = "Wrong";
+      time = -10;
+    }
+    questionsNumber++;
+    displayQuestions(questions);
   }
-  const h4 = document.createElement("h4");
-  h4.innerText = result;
-  quizContainer.appendChild(h3);
-  quizContainer.appendChild(ul);
-  quizContainer.appendChild(h4);
-}
-
-function startQuiz() {
-  showQuestions();
-}
+});
 
 const startQuizBtn = document.getElementById("start");
-startQuizBtn.addEventListener("click", startQuiz);
+startQuizBtn.addEventListener("click", startGame);

@@ -8,7 +8,6 @@
 4. New question loads with 3 second delay
 5. Final page shows results and allows user to add thier initials to high score page and view high scores
 6. High score page
-7.
 
 Design HTML
 a. Make a Div for questions

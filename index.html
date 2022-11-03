@@ -9,7 +9,7 @@
     <title>Quizlet</title>
   </head>
   <body>
-    <section id="question">
+    <div id="welcome">
       <h1>Anatomy Quiz</h1>
       <p>
         This anatomy quiz tests your knowledge of basic anatomy but with a twist
@@ -19,19 +19,28 @@
         ready? Let's go!
       </p>
       <a id="start">Start Quiz</a>
-    </section>
+    </div>
+    <div id="timer"></div>
+    <div id="quiz">
+      <div id="questions"></div>
+      <div id="answers"></div>
 
-    <div id="quiz"></div>
+      <div id="response"></div>
+    </div>
 
-    <section id="complete">
+    <a id="submit">Submit</a>
+
+    <div id="results"></div>
+
+    <div id="complete">
       <h2>All done!</h2>
       <p>Your final score is</p>
       <p>Enter initials</p>
       <a id="submit">Submit</a>
       <a id="view">View High Scores</a>
-    </section>
+    </div>
 
-    <section id="hiscores"></section>
+    <div id="hiscores"></div>
   </body>
   <script src="script.js"></script>
 </html>
