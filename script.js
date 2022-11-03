@@ -78,16 +78,19 @@ function displayQuestions(arr) {
 document.addEventListener("click", function (event) {
   if (event.target.matches(".answer")) {
     userAnswer = event.target.textContent;
-    if (userAnswer === riteAnswer) {
-      document.getElementById("response").textContent = "Right!";
-    } else {
-      document.getElementById("response").textContent = "Wrong";
-      time = -10;
-    }
     questionsNumber++;
-    if (questionsNumber < questions.length) {
-      //clears answers before going on to next question
+
+    if (userAnswer === riteAnswer && questionsNumber < questions.length) {
+      document.getElementById("response").textContent = "Right!";
       answerContainer.textContent = [];
+      displayQuestions(questions);
+    } else if (
+      userAnswer !== riteAnswer &&
+      questionsNumber < questions.length
+    ) {
+      document.getElementById("response").textContent = "Wrong";
+      answerContainer.textContent = [];
+      time = -10;
       displayQuestions(questions);
     } else {
       endGame();
