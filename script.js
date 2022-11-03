@@ -4,6 +4,7 @@ const answerContainer = document.getElementById("answers");
 const resultsContainer = document.getElementById("results");
 const submitButton = document.getElementById("submit");
 const welcome = document.getElementById("welcome");
+const startQuizBtn = document.getElementById("start");
 
 var questions = [
   {
@@ -94,5 +95,4 @@ document.addEventListener("click", function (event) {
   }
 });
 
-const startQuizBtn = document.getElementById("start");
 startQuizBtn.addEventListener("click", startGame);
