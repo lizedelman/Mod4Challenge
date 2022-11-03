@@ -70,8 +70,10 @@ document.addEventListener("click", function (event) {
     userAnswer = event.target.textContent;
     if (userAnswer === riteAnswer) {
       document.getElementById("response").textContent = "Right!";
+      questions = [];
     } else {
       document.getElementById("response").textContent = "Wrong";
+      questions = [];
       time = -10;
     }
     questionsNumber++;
