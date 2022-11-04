@@ -59,12 +59,91 @@ function startGame() {
   welcome.textContent = [];
 }
 
+function getHighScoresFromLocalStorage() {
+  const savedScores = localStorage.getItem("highScores");
+  let highScores = [];
+  if (savedScores) {
+    highScores = JSON.parse(savedScores);
+  }
+  return highScores;
+}
+
+function showHighScores() {
+  let highScores = getHighScoresFromLocalStorage();
+  questionContainer.innerHTML = "";
+  const h3 = document.createElement("h3");
+  h3.innerText = "High scores";
+  const ul = document.createElement("ul");
+  for (let i = 0; i < highScores.length; i++) {
+    const li = document.createElement("li");
+    li.innerText = highScores[i].initials + ": " + highScores[i].score;
+    ul.appendChild(li);
+  }
+  quizContainer.appendChild(h3);
+  quizContainer.appendChild(ul);
+}
+
+function saveScore() {
+  const initialsInput = document.getElementById("initials");
+  if (!initialsInput.value) {
+    alert("Please type your initials");
+    return false;
+  }
+  const savedScores = localStorage.getItem("highScores");
+  let highScores = getHighScoresFromLocalStorage();
+  highScores.push({
+    initials: initialsInput.value,
+    score: Math.max(0, score + time),
+  });
+  highScores.sort(function (a, b) {
+    return a.score - b.score;
+  });
+  highScores = highScores.reverse().slice(0, 10);
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+  showHighScores();
+}
+
+function saveScoreForm() {
+  quizContainer.innerHTML = "";
+  const initialsInput = document.createElement("input");
+  const initialsLabel = document.createElement("label");
+  initialsInput.setAttribute("type", "text");
+  initialsInput.setAttribute("id", "initials");
+  initialsLabel.setAttribute("for", "initials");
+  initialsLabel.innerText = "Please type your initials: ";
+  const button = document.createElement("a");
+  button.setAttribute("id", "save-score");
+  button.innerText = "Save score";
+  button.addEventListener("click", saveScore);
+  quizContainer.appendChild(initialsLabel);
+  quizContainer.appendChild(initialsInput);
+  quizContainer.appendChild(button);
+}
+
 function endGame() {
   clearInterval(interval);
   document.getElementById("timer").textContent = "";
+  questionContainer.textContent = [];
+  answerContainer.textContent = [];
+
   const h3 = document.createElement("h3");
   h3.textContent = "Your score: " + Math.max(0, score + time);
+
+  const scoreDiv = document.createElement("div");
+  scoreDiv.setAttribute("id", "score-div");
+
+  const scoreSpan = document.createElement("span");
+  scoreSpan.innerText = "Do you want to save your score?";
+
+  const scoreButton = document.createElement("a");
+  scoreButton.setAttribute("id", "save-score");
+  scoreButton.innerText = "Yes";
+
   quizContainer.appendChild(h3);
+  scoreDiv.appendChild(scoreSpan);
+  scoreDiv.appendChild(scoreButton);
+  questionContainer.appendChild(scoreDiv);
+  scoreButton.addEventListener("click", saveScoreForm);
 }
 
 function displayQuestions(arr) {
