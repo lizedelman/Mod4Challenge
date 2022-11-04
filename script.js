@@ -14,17 +14,17 @@ const finalScore = document.getElementById("finalscore");
 
 var questions = [
   {
-    title: "Where is the bicep brachii located?",
+    title: "1. Where is the bicep brachii located?",
     choices: ["arm", "chest", "back", "knee"],
     answer: "arm",
   },
   {
-    title: "Which of these are ball and socket joints?",
+    title: "2. Which of these are ball and socket joints?",
     choices: ["wrist", "hip", "ankle", "shin"],
     answer: "hip",
   },
   {
-    title: "What's the primary action of the glutes?",
+    title: "3. What's the primary action of the glutes?",
     choices: [
       "hip extension",
       "humerus abduction",
@@ -45,17 +45,8 @@ var interval;
 var time = 60;
 var remainingTime = "";
 function startTimer() {
-  // interval = setInterval(() => {
-  //   document.getElementById("timer").textContent = `Time Left: ${time} seconds`;
-  //   if (time === 0) {
-  //     clearInterval(interval);
-  //     endGame;
-  //   } else {
-  //     time--;
-  //   }
-  // }, 1000);
   time--;
-  timerEl.textContent = time;
+  timerEl.textContent = "Time: " + time;
   if (time <= 0) {
     endGame();
   }
@@ -64,7 +55,7 @@ function startTimer() {
 var timeId;
 function startGame() {
   timeId = setInterval(startTimer, 1000);
-  timerEl.textContent = time;
+  timerEl.textContent = "Time: " + time;
   displayQuestions(questions);
   welcome.textContent = [];
 }
@@ -153,7 +144,7 @@ function endGame() {
 
   scoreDiv.appendChild(scoreSpan);
   scoreDiv.appendChild(scoreButton);
-  questionContainer.appendChild(scoreDiv);
+  results.appendChild(scoreDiv);
   scoreButton.addEventListener("click", saveScoreForm);
 }
 
