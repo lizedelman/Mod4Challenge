@@ -1,3 +1,6 @@
+// Issues:
+// 1. Get timer to load faster when “Start Quiz” button is clicked
+
 const quizContainer = document.getElementById("quiz");
 const questionContainer = document.getElementById("questions");
 const answerContainer = document.getElementById("answers");
@@ -32,17 +35,18 @@ var questions = [
 var questionsNumber = 0;
 var userAnswer = "";
 var riteAnswer = "";
+var score = 0;
 
 //Timer
 var interval;
 var time = 60;
 function startTimer() {
   interval = setInterval(() => {
-    document.getElementById("timer").textContent = `Time: ${time}`;
-    if (time <= 0) {
+    document.getElementById("timer").textContent = `Time Left: ${time} seconds`;
+    if (time === 0) {
       clearInterval(interval);
       endGame;
-      //game over function (wrong questions, right etc and call initials function)
+      //add function to add results and ask for initials functions here
     } else {
       time--;
     }
@@ -56,9 +60,10 @@ function startGame() {
 }
 
 function endGame() {
-  quizContainer.textContent = "";
+  clearInterval(interval);
+  document.getElementById("timer").textContent = "";
   const h3 = document.createElement("h3");
-  h3.textContent = "Your score: ";
+  h3.textContent = "Your score: " + Math.max(0, score + time);
   quizContainer.appendChild(h3);
 }
 
@@ -88,10 +93,25 @@ document.addEventListener("click", function (event) {
       userAnswer !== riteAnswer &&
       questionsNumber < questions.length
     ) {
-      document.getElementById("response").textContent = "Wrong";
+      document.getElementById("response").textContent =
+        "Wrong, 10 second penalty";
       answerContainer.textContent = [];
-      time = -10;
+      time = time - 10;
       displayQuestions(questions);
+    } else if (
+      userAnswer !== riteAnswer &&
+      questionsNumber === questions.length
+    ) {
+      document.getElementById("response").textContent =
+        "Wrong, 10 second penalty";
+      time = time - 10;
+      endGame();
+    } else if (
+      userAnswer === riteAnswer &&
+      questionsNumber === questions.length
+    ) {
+      document.getElementById("response").textContent = "Right!";
+      endGame();
     } else {
       endGame();
     }

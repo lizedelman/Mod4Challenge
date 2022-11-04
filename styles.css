@@ -47,10 +47,26 @@ ul {
 body {
   padding: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-image: url(Assets/anatomy.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  height: 100%;
+}
+
+#wrapper {
+  background-color: antiquewhite;
+  padding: 20px;
+  border-radius: 5%;
+  width: 50%;
+  margin-left: 25%;
+  box-shadow: 5px 5px lightgray;
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 35px;
+  width: fit-content;
+  padding: 10px;
 }
 
 a {
@@ -63,13 +79,18 @@ a {
 }
 
 p {
-  padding-top: 20px;
+  padding: 20px;
   padding-bottom: 10px;
   margin-bottom: 25px;
+  font-size: 18px;
 }
 
 #welcome,
-#quiz,
+#quiz {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 #start,
 #timer {
   margin-top: 20px;
@@ -79,7 +100,8 @@ p {
 button.answer {
   margin-bottom: 5px;
   display: block;
-  background-color: rgb(179, 245, 241);
+  background-color: burlywood;
+  border-radius: 3%;
   padding: 5px;
   border: none;
   width: 50%;
@@ -95,12 +117,22 @@ a:hover {
 
 a#start {
   margin-top: 25px;
+  margin-left: 20px;
+}
+
+div#timer {
+  font-size: 15px;
+  color: red;
+  width: fit-content;
+  padding: 10px;
 }
 
 div#questions {
   margin-bottom: 20px;
   font-weight: 900;
   font-size: 25px;
+  width: fit-content;
+  padding: 10px;
 }
 
 div#answers {
@@ -112,6 +144,7 @@ div#response {
   font-style: italic;
   color: darkcyan;
   margin-top: 25px;
+  padding-bottom: 20px;
 }
 
 #quiz ul {
@@ -126,4 +159,14 @@ div#response {
 #quiz ul#quiz-ul li:hover {
   background-color: pink;
   color: black;
+}
+
+h3 {
+  margin-top: 25px;
+  font-weight: 900;
+  font-size: 25px;
+  background-color: burlywood;
+  border: burlywood 1px solid;
+  width: fit-content;
+  padding: 7px;
 }
