@@ -76,6 +76,7 @@ a {
   border-radius: 5%;
   font-size: 20px;
   box-shadow: 5px 5px grey;
+  margin: 15px;
 }
 
 p {
@@ -169,4 +170,27 @@ h3 {
   border: burlywood 1px solid;
   width: fit-content;
   padding: 7px;
+}
+
+h4 {
+  margin-top: 25px;
+  font-weight: 900;
+  font-size: 20px;
+  background-color: burlywood;
+  border: burlywood 1px solid;
+  width: fit-content;
+  padding: 7px;
+}
+
+#initials {
+  margin-left: 0px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-right: 20px;
+  padding: 5px;
+}
+
+div#questions span  {   
+    font-size: 20px;
+  }
 }

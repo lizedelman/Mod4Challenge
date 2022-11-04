@@ -1,5 +1,6 @@
 // Issues:
 // 1. Get timer to load faster when “Start Quiz” button is clicked
+// 2. Change order of how things display on the results page. Want it to be a) previous answer results, b) Your Score, c) Do you want to save?
 
 const quizContainer = document.getElementById("quiz");
 const questionContainer = document.getElementById("questions");
@@ -8,6 +9,8 @@ const resultsContainer = document.getElementById("results");
 const submitButton = document.getElementById("submit");
 const welcome = document.getElementById("welcome");
 const startQuizBtn = document.getElementById("start");
+const timerEl = document.getElementById("timer");
+const finalScore = document.getElementById("finalscore");
 
 var questions = [
   {
@@ -40,26 +43,33 @@ var score = 0;
 //Timer
 var interval;
 var time = 60;
+var remainingTime = "";
 function startTimer() {
-  interval = setInterval(() => {
-    document.getElementById("timer").textContent = `Time Left: ${time} seconds`;
-    if (time === 0) {
-      clearInterval(interval);
-      endGame;
-      //add function to add results and ask for initials functions here
-    } else {
-      time--;
-    }
-  }, 1000);
+  // interval = setInterval(() => {
+  //   document.getElementById("timer").textContent = `Time Left: ${time} seconds`;
+  //   if (time === 0) {
+  //     clearInterval(interval);
+  //     endGame;
+  //   } else {
+  //     time--;
+  //   }
+  // }, 1000);
+  time--;
+  timerEl.textContent = time;
+  if (time <= 0) {
+    endGame();
+  }
 }
 
+var timeId;
 function startGame() {
-  startTimer();
+  timeId = setInterval(startTimer, 1000);
+  timerEl.textContent = time;
   displayQuestions(questions);
   welcome.textContent = [];
 }
 
-function getHighScoresFromLocalStorage() {
+function getHighScores() {
   const savedScores = localStorage.getItem("highScores");
   let highScores = [];
   if (savedScores) {
@@ -68,29 +78,30 @@ function getHighScoresFromLocalStorage() {
   return highScores;
 }
 
+//displays high scores
 function showHighScores() {
-  let highScores = getHighScoresFromLocalStorage();
-  questionContainer.innerHTML = "";
-  const h3 = document.createElement("h3");
-  h3.innerText = "High scores";
+  let highScores = getHighScores();
+  quizContainer.innerHTML = "";
+  const h4 = document.createElement("h4");
+  h4.innerText = "High scores";
   const ul = document.createElement("ul");
   for (let i = 0; i < highScores.length; i++) {
     const li = document.createElement("li");
     li.innerText = highScores[i].initials + ": " + highScores[i].score;
     ul.appendChild(li);
   }
-  quizContainer.appendChild(h3);
+  quizContainer.appendChild(h4);
   quizContainer.appendChild(ul);
 }
 
 function saveScore() {
   const initialsInput = document.getElementById("initials");
   if (!initialsInput.value) {
-    alert("Please type your initials");
+    alert("Add your intials");
     return false;
   }
   const savedScores = localStorage.getItem("highScores");
-  let highScores = getHighScoresFromLocalStorage();
+  let highScores = getHighScores();
   highScores.push({
     initials: initialsInput.value,
     score: Math.max(0, score + time),
@@ -110,7 +121,7 @@ function saveScoreForm() {
   initialsInput.setAttribute("type", "text");
   initialsInput.setAttribute("id", "initials");
   initialsLabel.setAttribute("for", "initials");
-  initialsLabel.innerText = "Please type your initials: ";
+  initialsLabel.innerText = "Add your initials: ";
   const button = document.createElement("a");
   button.setAttribute("id", "save-score");
   button.innerText = "Save score";
@@ -121,13 +132,14 @@ function saveScoreForm() {
 }
 
 function endGame() {
-  clearInterval(interval);
+  clearInterval(timeId);
   document.getElementById("timer").textContent = "";
   questionContainer.textContent = [];
   answerContainer.textContent = [];
 
   const h3 = document.createElement("h3");
-  h3.textContent = "Your score: " + Math.max(0, score + time);
+  h3.textContent = "Your score: " + time;
+  finalScore.appendChild(h3);
 
   const scoreDiv = document.createElement("div");
   scoreDiv.setAttribute("id", "score-div");
@@ -139,7 +151,6 @@ function endGame() {
   scoreButton.setAttribute("id", "save-score");
   scoreButton.innerText = "Yes";
 
-  quizContainer.appendChild(h3);
   scoreDiv.appendChild(scoreSpan);
   scoreDiv.appendChild(scoreButton);
   questionContainer.appendChild(scoreDiv);
@@ -166,7 +177,7 @@ document.addEventListener("click", function (event) {
 
     if (userAnswer === riteAnswer && questionsNumber < questions.length) {
       document.getElementById("response").textContent = "Right!";
-      answerContainer.textContent = [];
+      answerContainer.textContent = "";
       displayQuestions(questions);
     } else if (
       userAnswer !== riteAnswer &&
@@ -174,24 +185,28 @@ document.addEventListener("click", function (event) {
     ) {
       document.getElementById("response").textContent =
         "Wrong, 10 second penalty";
-      answerContainer.textContent = [];
+      answerContainer.textContent = " ";
       time = time - 10;
       displayQuestions(questions);
-    } else if (
-      userAnswer !== riteAnswer &&
-      questionsNumber === questions.length
-    ) {
-      document.getElementById("response").textContent =
-        "Wrong, 10 second penalty";
-      time = time - 10;
-      endGame();
-    } else if (
-      userAnswer === riteAnswer &&
-      questionsNumber === questions.length
-    ) {
-      document.getElementById("response").textContent = "Right!";
-      endGame();
-    } else {
+    }
+
+    // else if (
+    //   userAnswer !== riteAnswer &&
+    //   questionsNumber === questions.length
+    // ) {
+    //   document.getElementById("response").textContent =
+    //     "Wrong, 10 second penalty";
+    //   time = time - 10;
+    //   // endGame();
+    // }
+    // (
+    // // ) {
+    // //   document.getElementById("response").textContent = "Right!";
+    // //   // endGame();
+    // // } else {
+    // //   endGame();
+    // )
+    else {
       endGame();
     }
   }
