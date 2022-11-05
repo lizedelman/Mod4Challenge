@@ -1,7 +1,3 @@
-// Issues:
-// 1. Get timer to load faster when “Start Quiz” button is clicked
-// 2. Change order of how things display on the results page. Want it to be a) previous answer results, b) Your Score, c) Do you want to save?
-
 const quizContainer = document.getElementById("quiz");
 const questionContainer = document.getElementById("questions");
 const answerContainer = document.getElementById("answers");
@@ -132,9 +128,6 @@ function endGame() {
   h3.textContent = "Your score: " + time;
   finalScore.appendChild(h3);
 
-  const scoreDiv = document.createElement("div");
-  scoreDiv.setAttribute("id", "score-div");
-
   const scoreSpan = document.createElement("span");
   scoreSpan.innerText = "Do you want to save your score?";
 
@@ -142,9 +135,8 @@ function endGame() {
   scoreButton.setAttribute("id", "save-score");
   scoreButton.innerText = "Yes";
 
-  scoreDiv.appendChild(scoreSpan);
-  scoreDiv.appendChild(scoreButton);
-  results.appendChild(scoreDiv);
+  results.appendChild(scoreSpan);
+  results.appendChild(scoreButton);
   scoreButton.addEventListener("click", saveScoreForm);
 }
 

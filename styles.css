@@ -70,13 +70,12 @@ h1 {
 }
 
 a {
-  background-color: hotpink;
+  background-color: #f4694c;
   padding: 5px;
-  border: hotpink 1px solid;
+  border: #f4694c 1px solid;
   border-radius: 5%;
   font-size: 20px;
   box-shadow: 5px 5px grey;
-  margin: 15px;
 }
 
 p {
@@ -113,7 +112,7 @@ button.answer:hover {
 }
 
 a:hover {
-  background-color: pink;
+  background-color: #f69b89;
 }
 
 a#start {
@@ -192,13 +191,11 @@ h4 {
 
 span {
   font-size: 18px;
-  margin-bottom: 20px;
-}
-
-div#score-div {
-  margin-bottom: 25px;
+  margin-bottom: 200px;
 }
 
 a#save-score {
-  margin: 25px;
+  display: block;
+  width: fit-content;
+  margin: 15px;
 }
