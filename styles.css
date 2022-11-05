@@ -109,10 +109,12 @@ button.answer {
 
 button.answer:hover {
   background-color: lightseagreen;
+  cursor: pointer;
 }
 
 a:hover {
   background-color: #f69b89;
+  cursor: pointer;
 }
 
 a#start {
@@ -137,6 +139,7 @@ div#questions {
 
 div#answers {
   font-size: 20px;
+  cursor: pointer;
 }
 
 div#response {
@@ -198,4 +201,5 @@ a#save-score {
   display: block;
   width: fit-content;
   margin: 15px;
+  cursor: pointer;
 }

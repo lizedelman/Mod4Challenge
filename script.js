@@ -10,17 +10,22 @@ const finalScore = document.getElementById("finalscore");
 
 var questions = [
   {
-    title: "1. Where is the bicep brachii located?",
+    quest: "1. Where is the bicep brachii located?",
     choices: ["arm", "chest", "back", "knee"],
     answer: "arm",
   },
   {
-    title: "2. Which of these are ball and socket joints?",
+    quest: "2. Which of these are ball and socket joints?",
     choices: ["wrist", "hip", "ankle", "shin"],
     answer: "hip",
   },
   {
-    title: "3. What's the primary action of the glutes?",
+    quest: "3. Where is the median nerve located?",
+    choices: ["shoulder", "back", "wrist", "ankle"],
+    answer: "wrist",
+  },
+  {
+    quest: "4. What's the primary action of the glutes?",
     choices: [
       "hip extension",
       "humerus abduction",
@@ -28,6 +33,11 @@ var questions = [
       "wrist supination",
     ],
     answer: "hip extension",
+  },
+  {
+    quest: "5. Where is the brachial plexus?",
+    choices: ["lower leg", "upper leg", "upper chest", "posterior knee"],
+    answer: "upper chest",
   },
 ];
 
@@ -101,7 +111,7 @@ function saveScore() {
   showHighScores();
 }
 
-function saveScoreForm() {
+function saveScoreInput() {
   quizContainer.innerHTML = "";
   const initialsInput = document.createElement("input");
   const initialsLabel = document.createElement("label");
@@ -129,7 +139,7 @@ function endGame() {
   finalScore.appendChild(h3);
 
   const scoreSpan = document.createElement("span");
-  scoreSpan.innerText = "Do you want to save your score?";
+  scoreSpan.innerText = "Save your score?";
 
   const scoreButton = document.createElement("a");
   scoreButton.setAttribute("id", "save-score");
@@ -137,11 +147,11 @@ function endGame() {
 
   results.appendChild(scoreSpan);
   results.appendChild(scoreButton);
-  scoreButton.addEventListener("click", saveScoreForm);
+  scoreButton.addEventListener("click", saveScoreInput);
 }
 
 function displayQuestions(arr) {
-  questionContainer.textContent = arr[questionsNumber].title;
+  questionContainer.textContent = arr[questionsNumber].quest;
   var choices = arr[questionsNumber].choices;
   riteAnswer = arr[questionsNumber].answer;
   for (let i = 0; i < choices.length; i++) {
